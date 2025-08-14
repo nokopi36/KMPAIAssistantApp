@@ -1,0 +1,29 @@
+CREATE TABLE Conversation (
+    id TEXT PRIMARY KEY NOT NULL,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL,
+    timestamp INTEGER NOT NULL,
+    is_favorite INTEGER DEFAULT 0 NOT NULL
+);
+
+selectAll:
+SELECT * FROM Conversation ORDER BY timestamp DESC;
+
+selectById:
+SELECT * FROM Conversation WHERE id = ?;
+
+selectFavorites:
+SELECT * FROM Conversation WHERE is_favorite = 1 ORDER BY timestamp DESC;
+
+insertConversation:
+INSERT INTO Conversation(id, question, answer, timestamp, is_favorite)
+VALUES(?, ?, ?, ?, ?);
+
+updateFavoriteStatus:
+UPDATE Conversation SET is_favorite = ? WHERE id = ?;
+
+deleteById:
+DELETE FROM Conversation WHERE id = ?;
+
+deleteAll:
+DELETE FROM Conversation;
