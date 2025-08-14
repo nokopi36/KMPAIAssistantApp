@@ -117,6 +117,18 @@ dependencies {
     debugImplementation(compose.uiTooling)
 }
 
+compose.desktop {
+    application {
+        mainClass = "com.nokopi.kmpaiassistantapp.MainKt"
+        
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "KMPAIAssistantApp"
+            packageVersion = "1.0.0"
+        }
+    }
+}
+
 sqldelight {
     databases {
         create("AppDatabase") {

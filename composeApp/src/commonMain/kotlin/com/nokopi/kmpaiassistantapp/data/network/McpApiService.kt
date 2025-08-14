@@ -117,14 +117,15 @@ class McpApiService(
                     .filter { it.type == "text" && !it.text.isNullOrEmpty() }
                     .mapNotNull { it.text }
                 
+                println("[MCP] Found ${textContents.size} text contents")
+                textContents.forEachIndexed { index, text ->
+                    println("[MCP] Text content[$index]: ${text.take(100)}...")
+                }
+                
                 val responseText = when {
                     textContents.isNotEmpty() -> {
-                        // 複数のテキストコンテンツがある場合は結合
-                        if (textContents.size > 1) {
-                            textContents.joinToString("\n\n")
-                        } else {
-                            textContents.first()
-                        }
+                        // 全てのテキストコンテンツを結合
+                        textContents.joinToString("\n\n")
                     }
                     // ツールの結果から回答を取得（フォールバック）
                     response.content.any { it.type == "tool_result" } -> {
